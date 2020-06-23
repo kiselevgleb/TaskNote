@@ -26,7 +26,6 @@ divParent.appendChild(divAllTask);
 const pAllTask = document.createElement('p');
 pAllTask.innerText = 'All Task';
 divAllTask.appendChild(pAllTask);
-let ar = [];
 const messNoTasks = document.createElement('p');
 pInput.addEventListener('keypress', (event) => {
   if (event.key === 'Enter') {
@@ -35,61 +34,55 @@ pInput.addEventListener('keypress', (event) => {
       const divTask = document.createElement('div');
       const task = document.createElement('p');
       const boxTask = document.createElement('input');
-      boxTask.type = "checkbox";
-      task.className = "task";
-      boxTask.className = "task";
+      boxTask.type = 'checkbox';
+      task.className = 'task';
+      boxTask.className = 'task';
       task.innerText = t;
-      ar.push(t);
       divTask.appendChild(task);
       divTask.appendChild(boxTask);
       divAllTask.appendChild(divTask);
-      event.target.value = "";
+      event.target.value = '';
     } else {
-      event.target.value = "ERROR input box without text";
-      document.body.addEventListener('click', (event) => {
-        event.target.value = "";
+      event.target.value = 'ERROR input box without text';
+      document.body.addEventListener('click', (e) => {
+        e.target.value = '';
       });
     }
-    divAllTask.childNodes.forEach(element => {
-      if (element.childNodes.length == 2) {
+    divAllTask.childNodes.forEach((element) => {
+      if (element.childNodes.length === 2) {
         element.style.display = 'block';
       }
     });
     divAllTask.removeChild(messNoTasks);
   }
-  divParent.addEventListener('click', (event) => {
-    console.log(event.target.parentNode);
-    console.log(event.target.parentNode.parentNode);
-    if (event.target.parentNode.parentNode == divAllTask && event.target.checked) {
-      divPinned.appendChild(event.target.parentNode);
-      ar.remove(event.target.previoussibling);
+  divParent.addEventListener('click', (eventC) => {
+    if (eventC.target.parentNode.parentNode === divAllTask && eventC.target.checked) {
+      divPinned.appendChild(eventC.target.parentNode);
       if (divPinned.childNodes.length > 1) {
         divPinned.removeChild(pNoPinned);
       }
-    } else if (event.target.parentNode.parentNode == divPinned && !event.target.checked) {
-      ar.push(event.target.previoussibling);
-      divAllTask.appendChild(event.target.parentNode);
-      if (divPinned.childNodes.length == 1) {
+    } else if (eventC.target.parentNode.parentNode === divPinned && !eventC.target.checked) {
+      divAllTask.appendChild(eventC.target.parentNode);
+      if (divPinned.childNodes.length === 1) {
         divPinned.appendChild(pNoPinned);
       }
     }
-
   });
 });
 pInput.addEventListener('input', (event) => {
   let coin = 0;
 
-  divAllTask.childNodes.forEach(element => {
-    if (element.childNodes.length == 2) {
-      if (!element.childNodes[0].innerText.includes(event.target.value)) {
-        element.style.display = 'none';
-        coin++;
+  divAllTask.childNodes.forEach((elem) => {
+    if (elem.childNodes.length === 2) {
+      if (!elem.childNodes[0].innerText.includes(event.target.value)) {
+        elem.style.display = 'none';
+        coin += 1;
       } else {
-        element.style.display = 'block';
+        elem.style.display = 'block';
       }
     }
   });
-  if (coin + 1 == divAllTask.childNodes.length) {
+  if (coin + 1 === divAllTask.childNodes.length) {
     messNoTasks.innerText = 'No tasks found';
     divAllTask.appendChild(messNoTasks);
   }
