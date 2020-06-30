@@ -12,6 +12,9 @@ const classInput = 'hole-input';
 pInput.classList.add(classInput);
 divParent.appendChild(pInput);
 
+const messError = document.createElement('p');
+divParent.appendChild(messError);
+
 const divPinned = document.createElement('div');
 divParent.appendChild(divPinned);
 const pPinned = document.createElement('p');
@@ -27,8 +30,10 @@ const pAllTask = document.createElement('p');
 pAllTask.innerText = 'All Task';
 divAllTask.appendChild(pAllTask);
 const messNoTasks = document.createElement('p');
+
 pInput.addEventListener('keypress', (event) => {
   if (event.key === 'Enter') {
+    messError.innerText = '';
     const t = event.target.value;
     if (t.length > 0) {
       const divTask = document.createElement('div');
@@ -42,10 +47,10 @@ pInput.addEventListener('keypress', (event) => {
       divTask.appendChild(boxTask);
       divAllTask.appendChild(divTask);
       event.target.value = '';
-    } else {
-      event.target.value = 'ERROR input box without text';
+    }  else {
+      messError.innerText = 'ERROR input box without text';
       document.body.addEventListener('click', (e) => {
-        e.target.value = '';
+        messError.innerText = '';
       });
     }
     divAllTask.childNodes.forEach((element) => {
