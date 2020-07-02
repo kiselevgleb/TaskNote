@@ -47,9 +47,9 @@ pInput.addEventListener('keypress', (event) => {
       divTask.appendChild(boxTask);
       divAllTask.appendChild(divTask);
       event.target.value = '';
-    }  else {
+    } else {
       messError.innerText = 'ERROR input box without text';
-      document.body.addEventListener('click', (e) => {
+      document.body.addEventListener('click', () => {
         messError.innerText = '';
       });
     }
